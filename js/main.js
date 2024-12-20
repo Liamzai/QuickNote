@@ -52,11 +52,19 @@ AOS.init({
 });
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    if (anchor.classList.contains('download-btn')) return;
+    
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            targetElement.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
     });
 });
 
